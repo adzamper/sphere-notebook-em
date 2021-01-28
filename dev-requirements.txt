@@ -4,6 +4,7 @@ matplotlib
 ipywidgets
 jupyter
 pandas
+quadpy
 pymatsolver
 SimPEG
 sphinx
