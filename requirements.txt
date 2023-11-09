@@ -4,4 +4,4 @@ scipy
 matplotlib
 ipywidgets
 jupyter
-ipymbl
+ipympl
