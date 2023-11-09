@@ -4,11 +4,5 @@ matplotlib
 ipywidgets
 jupyter
 pandas
-quadpy
-pymatsolver
-SimPEG
-sphinx
-sphinx_rtd_theme
-nbsphinx
-testipynb
-pytest
+quadpy-gpl
+ipymbl
