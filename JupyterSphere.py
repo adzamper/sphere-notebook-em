@@ -371,8 +371,10 @@ def sphereresponse(aw, sigob, sigsp, thickob, depth, txheight, dipw):
         # store z component of induced moment
 
         # store sphere moment
-
-        msp = np.array([(2 * math.pi * (a ** 3)) * temp[0], convo_y, (2 * math.pi * (a ** 3)) * temp[1]])
+        testing = temp[0][0]
+        testing2 = temp[1]
+        testing3 = np.array([(2 * math.pi * (a ** 3)) * temp[0][0], 0.00, (2 * math.pi * (a ** 3)) * temp[1][0]])
+        msp = np.array([(2 * math.pi * (a ** 3)) * temp[0][0], convo_y, (2 * math.pi * (a ** 3)) * temp[1][0]])
 
         # dipping sphere model if applydip=1
 
@@ -430,7 +432,7 @@ def sphereresponse(aw, sigob, sigsp, thickob, depth, txheight, dipw):
 
     matplotlib.rcParams["font.size"] = 14
 
-    figure, ax = plt.subplots(1, 2, figsize=(12, 6))
+    figure, ax = plt.subplots(2, 1,figsize=(8, 12))
     i = 0
     while i < len(H_tot_x):
         ax[0].plot(np.linspace(profile[0][0], profile[0][100], 101),
@@ -446,8 +448,27 @@ def sphereresponse(aw, sigob, sigsp, thickob, depth, txheight, dipw):
     ax[0].set_ylabel('X Response (nT)')
     ax[1].set_xlabel('Profile Position(m)')
     ax[1].set_ylabel('Z Response (nT)')
-    ax[0].grid(True)
-    ax[1].grid(True)
+
+    major_ticks = np.arange(-1000, 800, 200)
+    minor_ticks = np.arange(-1000, 800, 100)
+
+    ax[0].set_xticks(major_ticks)
+    ax[0].set_xticks(minor_ticks, minor=True)
+    ax[1].set_xticks(major_ticks)
+    ax[1].set_xticks(minor_ticks, minor=True)
+    #ax[0].set_yticks(major_ticks)
+    #ax[0].set_yticks(minor_ticks, minor=True)
+
+    # And a corresponding grid
+    #ax[0].grid(which='minor')
+
+    # Or if you want different settings for the grids:
+    #ax[0].grid(which='minor', alpha=0.2)
+    #ax[0].grid(which='major', alpha=0.5)
+
+    #ax[0].xaxis.set_ticks([-1000,-900,-800,-700,-600,-500,-400,-300,-200,-100,0,100,200,300,400,500,600,700])
+    ax[0].grid(True,which="both")
+    ax[1].grid(True,which="both")
     plt.tight_layout()
     plt.show()
     return
@@ -456,19 +477,20 @@ def sphereresponse(aw, sigob, sigsp, thickob, depth, txheight, dipw):
 def SphereWidget():
     i = interact(
         sphereresponse,
-        aw=FloatSlider(min=1.0, max=300.0, step=1, value=100, continuous_update=False, description="$a$"),
+        aw=FloatText(min=1.0, max=300.0, step=1, value=100, continuous_update=False, description="$a$"),
 
-        sigob=FloatSlider(min=0.001, max=5.0, step=.01, value=0.03, continuous_update=False, description="$\sigma_{ob}$"),
+        sigob=FloatText(min=0.001, max=5.0, step=.01, value=0.03, continuous_update=False, description="$\sigma_{ob}$"),
 
-        sigsp=FloatSlider(min=0.01, max=10.0, step=.01, value=0.5, continuous_update=False, description="$\sigma_{sp}$"),
+        sigsp=FloatText(min=0.01, max=10.0, step=.01, value=0.5, continuous_update=False, description="$\sigma_{sp}$"),
 
-        thickob=FloatSlider(min=2.0, max=100.0, step=1, value=2, continuous_update=False, description="$t$"),
+        thickob=FloatText(min=2.0, max=100.0, step=1, value=4, continuous_update=False, description="$t$"),
 
-        depth=FloatSlider(min=-500.0, max=-10.0, step=1, value=-100.0, continuous_update=False, description="$d$"),
+        depth=FloatText(min=-500.0, max=-10.0, step=1, value=-200.0, continuous_update=False, description="$d$"),
 
-        txheight=FloatSlider(min=30.0, max=250.0, step=1, value=120.0, continuous_update=False, description="$tx_z$"),
+        txheight=FloatText(min=30.0, max=250.0, step=1, value=120.0, continuous_update=False, description="$tx_z$"),
 
-        dipw=FloatSlider(min=0.0, max=360.0, step=1, value=135.0, continuous_update=False, description="$dip$"),
+        dipw=FloatText(min=0.0, max=360.0, step=1, value=0.0, continuous_update=False, description="$dip$"),
 
     )
     return i
+SphereWidget()
