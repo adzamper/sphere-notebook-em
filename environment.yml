@@ -9,4 +9,6 @@ dependencies:
   - scipy
   - matplotlib
   - ipywidgets>=0.6.0
-  - ipymbl
+pip:
+  - ipympl
+  - quadpy-gpl
