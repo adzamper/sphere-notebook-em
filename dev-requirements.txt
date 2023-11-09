@@ -5,4 +5,4 @@ ipywidgets
 jupyter
 pandas
 quadpy-gpl
-ipymbl
+ipympl
